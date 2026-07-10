@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: jme-message-exchange-service
+  jpa:
+    properties:
+      hibernate:
+        default_schema: data
+    open-in-view: false
+  datasource:
+    hikari:
+      schema: ${spring.jpa.properties.hibernate.default_schema}
+  flyway:
+    default-schema: ${spring.jpa.properties.hibernate.default_schema}
+  main:
+    banner-mode: off
+  security:
+    oauth2:
+      client:
+        registration:
+          jme-archrepo-client:
+            client-id: jme-archrepo-client
+            client-secret: secret
+            scope: openid
+            authorization-grant-type: client_credentials
+            provider: jme-archrepo-client
+        provider:
+          jme-archrepo-client:
+            token-uri: https://internal-csp.jme-dev.nivel.bazg.admin.ch/jme-archrepo-auth-scs/oauth2/token
+            # Note: The token-uri is different when connecting from the local development environment to DEV
+            # token-uri: https://jme-dev.ingress.nivel.bazg.admin.ch/jme-archrepo-auth-scs/oauth2/token
+
+server:
+  servlet:
+    context-path: "/message-exchange"
+  tomcat:
+    threads:
+      max: 400
+
+springdoc:
+  swagger-ui:
+    try-it-out-enabled: true
+
+jeap:
+  messageexchange:
+    malwarescan:
+      enabled: false
+
+  mes:
+    test-bp-ids: 123456789, 987654321, 555555555, 999999999, 1000087912

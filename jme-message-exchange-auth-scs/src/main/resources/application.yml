@@ -1,0 +1,69 @@
+spring:
+  application:
+    name: jme-message-exchange-auth-scs
+
+server:
+  servlet:
+    context-path: /${spring.application.name}
+
+jeap:
+  monitor:
+    prometheus:
+      user: "prometheus"
+      password: "{noop}secret"
+
+oauth-mock-data:
+  clients:
+    - client-id: "partner-client"
+      client-secret: "{noop}secret"
+      context: "B2B"
+      registered-redirect-uri:
+        - http://localhost:8080/jme-message-exchange-service/swagger-ui/oauth2-redirect.html
+        - http://localhost:8080/jme-message-exchange-client-service/swagger-ui/oauth2-redirect.html
+        - https://dev-jme-internal.bit.admin.ch/jme-message-exchange-service/swagger-ui/oauth2-redirect.html
+        - https://dev-jme-internal.bit.admin.ch/jme-message-exchange-client-service/swagger-ui/oauth2-redirect.html
+        - https://internal-csp.jme-dev.nivel.bazg.admin.ch/jme-message-exchange-service/swagger-ui/oauth2-redirect.html
+        - https://internal-csp.jme-dev.nivel.bazg.admin.ch/jme-message-exchange-client/swagger-ui/oauth2-redirect.html
+      bproles:
+        "123": [ "wvs_@b2bmessagein_#write", "wvs_@b2bmessageout_#read" ]
+
+    - client-id: "privileged-system-client"
+      client-secret: "{noop}secret"
+      context: "SYS"
+      registered-redirect-uri:
+        - http://localhost:8080/jme-message-exchange-service/swagger-ui/oauth2-redirect.html
+        - http://localhost:8080/jme-message-exchange-client-service/swagger-ui/oauth2-redirect.html
+        - https://dev-jme-internal.bit.admin.ch/jme-message-exchange-service/swagger-ui/oauth2-redirect.html
+        - https://dev-jme-internal.bit.admin.ch/jme-message-exchange-client-service/swagger-ui/oauth2-redirect.html
+        - https://internal-csp.jme-dev.nivel.bazg.admin.ch/jme-message-exchange-service/swagger-ui/oauth2-redirect.html
+        - https://internal-csp.jme-dev.nivel.bazg.admin.ch/jme-message-exchange-client/swagger-ui/oauth2-redirect.html
+      userroles:
+        - "wvs_@b2bmessageout_#read"
+        - "wvs_@b2bmessagein_#write"
+
+    - client-id: "internal-client"
+      client-secret: "{noop}secret"
+      context: "SYS"
+      registered-redirect-uri:
+        - http://localhost:8080/jme-message-exchange-service/swagger-ui/oauth2-redirect.html
+        - http://localhost:8080/jme-message-exchange-client-service/swagger-ui/oauth2-redirect.html
+        - https://dev-jme-internal.bit.admin.ch/jme-message-exchange-service/swagger-ui/oauth2-redirect.html
+        - https://dev-jme-internal.bit.admin.ch/jme-message-exchange-client-service/swagger-ui/oauth2-redirect.html
+        - https://internal-csp.jme-dev.nivel.bazg.admin.ch/jme-message-exchange-service/swagger-ui/oauth2-redirect.html
+        - https://internal-csp.jme-dev.nivel.bazg.admin.ch/jme-message-exchange-client/swagger-ui/oauth2-redirect.html
+      userroles:
+        - "wvs_@b2bmessageout_#write"
+        - "wvs_@b2bmessagein_#read"
+
+    - client-id: "jme-message-exchange-perftest"
+      client-secret: "{noop}secret"
+      context: "SYS"
+      bproles:
+        "123456789": [ "wvs_@b2bmessagein_#write", "wvs_@b2bmessageout_#read" ]
+        "987654321": [ "wvs_@b2bmessagein_#write", "wvs_@b2bmessageout_#read" ]
+        "555555555": [ "wvs_@b2bmessagein_#write", "wvs_@b2bmessageout_#read" ]
+        "999999999": [ "wvs_@b2bmessagein_#write", "wvs_@b2bmessageout_#read" ]
+        "1000087912": [ "wvs_@b2bmessagein_#write", "wvs_@b2bmessageout_#read" ]
+      userroles:
+        - "wvs_@b2bmessageout_#write"
+        - "wvs_@b2bmessagein_#read"

@@ -1,0 +1,12 @@
+jeap:
+  messaging:
+    kafka:
+      errorTopicName: jme-messageprocessing-failed
+      systemName: jme
+      cluster:
+        default:
+          bootstrapServers: "jme-mes-broker:29092"
+          schemaRegistryUrl: "http://jme-mes-schema-registry:8081"
+          username: user
+          password: user-secret
+          securityProtocol: SASL_PLAINTEXT

@@ -1,0 +1,9 @@
+jeap:
+  messageexchange:
+    objectstorage:
+      connection:
+        access-url: http://localhost:9000
+
+spring:
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/jme-message-exchange-db"

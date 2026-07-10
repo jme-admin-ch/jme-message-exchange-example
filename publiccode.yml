@@ -1,0 +1,38 @@
+publiccodeYmlVersion: 0.4.0
+name: jme-message-exchange-example
+applicationSuite: JME
+softwareVersion: 1.0.0
+releaseDate: 2026-07-15
+url: "https://github.com/jme-admin-ch/jme-message-exchange-example.git"
+landingURL: "https://github.com/jme-admin-ch/jme"
+platforms:
+  - web
+categories:
+  - application-development
+developmentStatus: stable
+softwareType: standalone/backend
+organisation:
+  uri: https://ld.admin.ch/office/V.1.7
+  name: Federal Office of Information Technology, Systems and Telecommunication
+description:
+  en:
+    localisedName: jme-message-exchange-example
+    shortDescription: Example project demonstrating the usage of the jEAP Message Exchange Service.
+    longDescription: >
+      This example project demonstrates how to use the jEAP Message Exchange Service, including setup, 
+      configuration, and integration with other components.
+    features:
+      - Demonstrates instantiation and configuration of the jEAP Message Exchange Service
+      - Includes OAuth mock server for authentication
+      - Provides Docker Compose setup for local development
+legal:
+  license: Apache-2.0
+maintenance:
+  type: internal
+  contacts:
+    - name: Federal Office of Information Technology, Systems and Telecommunication FOITT
+      email: jeap-community@bit.admin.ch
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - en

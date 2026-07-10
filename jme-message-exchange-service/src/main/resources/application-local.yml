@@ -1,0 +1,102 @@
+server:
+  port: 8080
+
+jeap:
+  messageexchange:
+    messagesent:
+      enabled: true
+    kafka:
+      topic:
+        message-received: jme-messageexchange-b2bmessagereceived
+        message-sent: jme-messageexchange-b2bmessagesent
+    objectstorage:
+      connection:
+        bucket-name-partner: bazg-jme-messageexchange-partner-obs-dev
+        bucket-name-internal: bazg-jme-messageexchange-internal-obs-dev
+        access-url: http://localhost:9000
+        access-key: rustfsadmin
+        secret-key: rustfsadmin
+    malwarescan:
+      enabled: false
+      aws-s3:
+        sqs-queue-url: http://localhost:4566/000000000000/malware-scan-results
+        sqs-endpoint-url: http://localhost:4566
+        sqs-region: eu-central-1
+        sqs-access-key-id: test
+        sqs-secret-access-key: test
+        sqs-http-proxy-use-externally-defined-settings: false
+        restrict-notifying-malware-scan-results-to-buckets:
+          - "${jeap.messageexchange.objectstorage.connection.bucket-name-partner}"
+    api:
+      max-request-body-size-in-bytes: 500000000
+      media-types: application/json, application/xml
+  messaging:
+    kafka:
+      errorTopicName: jme-messageprocessing-failed
+      systemName: jme
+      cluster:
+        default:
+          bootstrapServers: "http://localhost:10000"
+          schemaRegistryUrl: "http://localhost:11000"
+          username: user
+          password: user-secret
+          securityProtocol: SASL_PLAINTEXT
+
+  security:
+    oauth2:
+      resourceserver:
+        system-name: "wvs" # the b2b keycloak on dev issues tokens for wvs, mock server is also configured to use wvs
+        authorization-server:
+          issuer: "http://localhost:8081/jme-message-exchange-auth-scs"
+          authentication-contexts: b2b, sys
+          # the following properties are only to show how you could configure timeout
+          # the requests that fetch the JSON Web Key Set (JWKS) from an authorization server
+          # ONLY configure those if needed, the defaults should be fine
+          jwks-connect-timeout-in-millis: 15000
+          jwks-read-timeout-in-millis: 15000
+        # Note: For REF+ stages, configure both the B2B keycloak and the system's keycloak realm using
+        # authorization-server:
+        #     issuer: "http://<your-system-keycloak-realm-url>"
+        #     authentication-contexts: sys
+        # auth-servers:
+        #   - issuer: "http://<b2b-keyloak-url>"
+        #     authentication-contexts: b2b
+  swagger:
+    status: OPEN
+  monitor:
+    prometheus:
+      secure: false
+    # Note: Enable these properties if you want to upload the DB schema to the archrepo instance on local or DEV
+    #       When connecting to the archrepo instance on DEV, make sure to update the token URI in application.yml
+  # archrepo:
+    # url: https://localhost:8080/jme-archrepo-service
+    # url: https://jme-dev.ingress.nivel.bazg.admin.ch/jme-archrepo-service
+    # oauth-client: jme-archrepo-client
+
+spring:
+  cloud:
+    aws:
+      region:
+        static: eu-central-1
+      credentials:
+        access-key: test
+        secret-key: test
+      sqs:
+        endpoint: http://localhost:4566
+        listener:
+          auto-startup: false
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/jme-message-exchange-db"
+    username: "postgres"
+    password: "secret"
+  security:
+    oauth2:
+      client:
+        provider:
+          archrepo-client:
+            token-uri: http://localhost:8081/jme-archrepo-auth-scs/oauth2/token
+
+logging:
+  level:
+    ch.admin.bit.jeap.messageexchange.domain.xml: trace
+    ch.admin.bit.jeap.messageexchange: DEBUG

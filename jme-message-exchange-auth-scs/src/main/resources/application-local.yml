@@ -1,0 +1,5 @@
+server:
+  port: 8081
+
+mockserver:
+  base-url: "http://localhost:${server.port}/jme-message-exchange-auth-scs"

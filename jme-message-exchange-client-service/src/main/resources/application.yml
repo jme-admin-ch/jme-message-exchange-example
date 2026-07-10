@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: jme-message-exchange-client-service
+  security:
+    oauth2:
+      client:
+        registration:
+          internal-client:
+            client-id: "internal-client"
+            client-secret: "secret"
+            authorization-grant-type: "client_credentials"
+            provider: "default-provider"
+          partner-client:
+            client-id: "partner-client"
+            client-secret: "secret"
+            authorization-grant-type: "client_credentials"
+            provider: "default-provider"
+          privileged-system-client:
+            client-id: "privileged-system-client"
+            client-secret: "secret"
+            authorization-grant-type: "client_credentials"
+            provider: "default-provider"
+
+server:
+  servlet:
+    context-path: "/message-exchange-client"
+
+jeap:
+  swagger:
+    status: open
+  messaging:
+    kafka:
+      errorTopicName: jme-messageprocessing-failed
+      systemName: JME
+      serviceName: ${spring.application.name}
+
+springdoc:
+  swagger-ui:
+    try-it-out-enabled: true

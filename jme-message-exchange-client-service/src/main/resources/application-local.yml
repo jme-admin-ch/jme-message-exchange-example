@@ -1,0 +1,30 @@
+server:
+  port: 8082
+
+jeap:
+  monitor:
+    prometheus:
+      user: prometheus
+      password: "{noop}secret"
+  messaging:
+    kafka:
+      bootstrapServers: "http://localhost:10000"
+      schemaRegistryUrl: "http://localhost:11000"
+      username: user
+      password: user-secret
+      securityProtocol: SASL_PLAINTEXT
+
+spring:
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+  security:
+    oauth2:
+      client:
+        provider:
+          default-provider:
+            issuer-uri: "http://localhost:8081/jme-message-exchange-auth-scs"
+
+messageexchange:
+  client:
+    url: "http://localhost:8080/message-exchange"

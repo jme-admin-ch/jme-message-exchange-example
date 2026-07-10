@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: jme-message-exchange-test
+  main:
+    banner-mode: off
+  docker:
+    compose:
+      enabled: true
+      file: ../docker/docker-compose.yml
+      lifecycle-management: start-and-stop
+      skip:
+        in-tests: false
+      arguments:
+        - "--project-name=${COMPOSE_PROJECT_NAME:jme-message-exchange-test}"
+      readiness:
+        timeout: 120s
+  datasource:
+    username: "postgres"
+    password: "secret"
+jeap:
+  messageexchange:
+    messagesent:
+      enabled: true
+    kafka:
+      topic:
+        message-received: jme-messageexchange-b2bmessagereceived
+        message-sent: jme-messageexchange-b2bmessagesent
+    objectstorage:
+      connection:
+        bucket-name-partner: bazg-jme-messageexchange-partner-obs-dev
+        bucket-name-internal: bazg-jme-messageexchange-internal-obs-dev
+        access-key: rustfsadmin
+        secret-key: rustfsadmin
+
+  messaging:
+    kafka:
+      errorTopicName: jme-messageprocessing-failed
+      systemName: jme
+      cluster:
+        default:
+          bootstrapServers: "http://localhost:10000"
+          schemaRegistryUrl: "http://localhost:11000"
+          username: user
+          password: user-secret
+          securityProtocol: SASL_PLAINTEXT

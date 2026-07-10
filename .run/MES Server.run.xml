@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MES Server" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="local" />
+    <module name="jme-message-exchange-service" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="ch.admin.bit.jeap.messageexchange.web.MessageExchangeApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

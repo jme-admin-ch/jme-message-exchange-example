@@ -1,0 +1,38 @@
+spring:
+  docker:
+    compose:
+      host: 172.18.0.1
+      file:
+        - ../docker/docker-compose.yml
+        - ../docker/docker-compose-ci.yml
+  datasource:
+    url: "jdbc:postgresql://jme-message-exchange-db:5432/jme-message-exchange-db"
+
+jeap:
+  messageexchange:
+    objectstorage:
+      connection:
+        access-url: http://rustfs:9000
+    malwarescan:
+      enabled: false
+      aws-s3:
+        sqs-queue-url: http://localstack:4566/000000000000/malware-scan-results
+        sqs-endpoint-url: http://localstack:4566
+        sqs-region: eu-central-1
+        sqs-access-key-id: test
+        sqs-secret-access-key: test
+        sqs-http-proxy-use-externally-defined-settings: false
+        restrict-notifying-malware-scan-results-to-buckets:
+          - "${jeap.messageexchange.objectstorage.connection.bucket-name-partner}"
+
+  messaging:
+    kafka:
+      errorTopicName: jme-messageprocessing-failed
+      systemName: jme
+      cluster:
+        default:
+          bootstrapServers: "jme-mes-broker:29092"
+          schemaRegistryUrl: "http://jme-mes-schema-registry:8081"
+          username: user
+          password: user-secret
+          securityProtocol: SASL_PLAINTEXT

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <url>https://github.com/jme-admin-ch/jme-message-exchange-example/tree/main</url>
+
+    <scm>
+        <url>https://github.com/jme-admin-ch/jme-message-exchange-example/tree/main.git</url>
+        <connection>scm:git:git://github.com/jme-admin-ch/jme-message-exchange-example.git</connection>
+        <developerConnection>scm:git:ssh://github.com:jme-admin-ch/jme-message-exchange-example.git</developerConnection>
+    </scm>
+    <developers>
+        <developer>
+            <name>BIT</name>
+            <email>jeap-community@bit.admin.ch</email>
+            <organization>Federal Office of Information Technology, Systems and Telecommunication FOITT</organization>
+            <organizationUrl>https://www.bit.admin.ch/</organizationUrl>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <groupId>ch.admin.bit.jeap.jme</groupId>
+    <artifactId>jme-message-exchange-example</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>ch.admin.bit.jeap</groupId>
+        <artifactId>jeap-spring-boot-parent</artifactId>
+        <version>36.3.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <modules>
+        <module>jme-message-exchange-auth-scs</module>
+        <module>jme-message-exchange-client-service</module>
+        <module>jme-message-exchange-service</module>
+        <module>jme-message-exchange-test</module>
+    </modules>
+
+    <properties>
+        <jeap-message-exchange-service.version>9.0.0</jeap-message-exchange-service.version>
+        <jeap-oauth-mock-server.version>6.3.0</jeap-oauth-mock-server.version>
+        <jme-spring-boot-integration-test.version>5.4.0</jme-spring-boot-integration-test.version>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>jme-message-exchange-auth-scs</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>jme-message-exchange-client-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>jme-message-exchange-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>jme-message-exchange-test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Add license to jar manifest -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <Bundle-License>https://www.apache.org/licenses/LICENSE-2.0</Bundle-License>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <!-- Check third-party license compliance -->
+            <plugin>
+                <groupId>org.honton.chas</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+            </plugin>
+            <!-- Generate third-party license list and check for missing license information -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

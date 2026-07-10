@@ -1,0 +1,195 @@
+x-rustfs-common: &rustfs-common
+  image: rustfs/rustfs:1.0.0-beta.8
+  environment:
+    RUSTFS_VOLUMES: /data
+    RUSTFS_ADDRESS: 0.0.0.0:9000
+    RUSTFS_CONSOLE_ADDRESS: 0.0.0.0:9001
+    RUSTFS_ACCESS_KEY: rustfsadmin
+    RUSTFS_SECRET_KEY: rustfsadmin
+    RUSTFS_CONSOLE_ENABLE: "true"
+    RUSTFS_REGION: us-east-1
+    http_proxy: ''
+    https_proxy: ''
+    HTTP_PROXY: ''
+    HTTPS_PROXY: ''
+  healthcheck:
+    test: [ "CMD-SHELL", "curl -fsS http://127.0.0.1:9000/health && curl -fsS http://127.0.0.1:9001/rustfs/console/health" ]
+    interval: 30s
+    timeout: 10s
+    retries: 3
+    start_period: 40s
+
+
+services:
+
+  ############################################
+  # Kafka Cluster
+  ############################################
+  jme-mes-broker:
+    image: confluentinc/cp-kafka:8.3.0
+    hostname: jme-mes-broker
+    ports:
+      - "10000:10000"
+    volumes:
+      - ./kafka_server_jaas.conf:/etc/kafka/kafka_server_jaas.conf
+    environment:
+      # KRaft mode settings
+      KAFKA_BROKER_ID: 1
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@jme-mes-broker:29093'
+      # KRaft cluster ID - format properly, a 22-character base64-encoded string, for the confluent platform
+      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://jme-mes-broker:9092,SASL_PLAINTEXT://localhost:10000
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,SASL_PLAINTEXT://0.0.0.0:10000,CONTROLLER://0.0.0.0:29093
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      # Authentication
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf"
+      KAFKA_SASL_ENABLED_MECHANISMS: SCRAM-SHA-512
+      # Temporary storage settings
+      KAFKA_LOG_DIRS: /tmp/kafka-logs
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    healthcheck:
+      test: [ "CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092" ]
+      interval: 5s
+      timeout: 10s
+      retries: 15
+      start_period: 10s
+
+  jme-mes-broker_init:
+    image: confluentinc/cp-kafka:8.3.0
+    depends_on:
+      jme-mes-broker:
+        condition: service_healthy
+    entrypoint:
+      - /bin/bash
+      - -exc
+      - kafka-configs --bootstrap-server jme-mes-broker:9092 --alter --add-config 'SCRAM-SHA-512=[password=user-secret]' --entity-type users --entity-name user
+
+  jme-mes-schema-registry:
+    image: confluentinc/cp-schema-registry:8.3.0
+    depends_on:
+      jme-mes-broker:
+        condition: service_healthy
+      jme-mes-broker_init:
+        condition: service_completed_successfully
+      rustfs_init:
+        condition: service_completed_successfully
+      localstack_init:
+        condition: service_completed_successfully
+    ports:
+      - "11000:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: jme-mes-schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://jme-mes-broker:9092
+
+  ############################################
+  # Database
+  ############################################
+  jme-message-exchange-db:
+    image: postgres:18.4-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=jme-message-exchange-db
+
+  ############################################
+  # S3
+  ############################################
+  rustfs:
+    <<: *rustfs-common
+    hostname: rustfs
+    depends_on:
+      rustfs-volume-permission-helper:
+        condition: service_completed_successfully
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - rustfs-data:/data
+
+  rustfs-volume-permission-helper:
+    image: alpine:3.22.2
+    volumes:
+      - rustfs-data:/data
+    command: sh -c "chown -R 10001:10001 /data"
+
+  rustfs_init:
+    image: amazon/aws-cli:2.32.16
+    depends_on:
+      rustfs:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      until aws --endpoint-url http://rustfs:9000 --cli-connect-timeout 5 s3api list-buckets; do
+        echo 'Waiting for RustFS...';
+        sleep 2;
+      done;
+      aws --endpoint-url http://rustfs:9000 s3api create-bucket --bucket bazg-jme-messageexchange-partner-obs-dev;
+      aws --endpoint-url http://rustfs:9000 s3api create-bucket --bucket bazg-jme-messageexchange-internal-obs-dev;
+      "
+    environment:
+      AWS_ACCESS_KEY_ID: rustfsadmin
+      AWS_SECRET_ACCESS_KEY: rustfsadmin
+      AWS_DEFAULT_REGION: us-east-1
+      HTTP_PROXY: ''
+      HTTPS_PROXY: ''
+      http_proxy: ''
+      https_proxy: ''
+      NO_PROXY: 'rustfs,localhost,127.0.0.1'
+      no_proxy: 'rustfs,localhost,127.0.0.1'
+
+  ############################################
+  # LocalStack (SQS and Secrets Manager)
+  ############################################
+  localstack:
+    image: localstack/localstack:4.10.0
+    hostname: 'localstack'
+    ports:
+      - "4566:4566"
+    environment:
+      SERVICES: sqs,secretsmanager
+      DEBUG: 1
+      AWS_DEFAULT_REGION: eu-central-1
+      EDGE_PORT: 4566
+    volumes:
+      - localstack-data:/var/lib/localstack
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  localstack_init:
+    image: amazon/aws-cli:2.32.3
+    environment:
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_DEFAULT_REGION: eu-central-1
+    entrypoint: >
+      /bin/sh -c "
+      echo 'Creating SQS queue...';
+      aws --endpoint-url=http://localstack:4566 sqs create-queue --queue-name malware-scan-results;
+      echo 'SQS queue created successfully';
+      echo 'Queue URL: http://localhost:4566/000000000000/malware-scan-results';
+      echo '';
+      echo 'Creating Secrets Manager secrets...';
+      aws --endpoint-url=http://localstack:4566 secretsmanager create-secret --name jme/test-secret --secret-string '{\"fooUser\":\"foo\",\"fooPassword\":\"bar\"}';
+      echo 'Secrets created successfully';
+      echo '';
+      echo '=== LocalStack Setup Complete ===';
+      echo 'SQS Queue URL: http://localhost:4566/000000000000/malware-scan-results';
+      echo 'Secrets Manager Endpoint: http://localhost:4566';
+      echo 'Available secrets:';
+      echo '  - jme/test-secret';
+      "
+    depends_on:
+      localstack:
+        condition: service_healthy
+
+volumes:
+  localstack-data:
+  rustfs-data:
