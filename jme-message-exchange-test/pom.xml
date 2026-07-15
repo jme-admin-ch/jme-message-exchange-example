@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>ch.admin.bit.jeap.jme</groupId>
+        <groupId>ch.admin.bit.jeap</groupId>
         <artifactId>jme-message-exchange-example</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
@@ -12,6 +12,10 @@
     <artifactId>jme-message-exchange-test</artifactId>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
+
+    <properties>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+    </properties>
 
     <dependencies>
 
@@ -76,6 +80,8 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Force an (empty) Javadoc jar to be attached: this module has no Java
+            sources to document, but Maven Central requires a Javadoc artifact. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -88,10 +94,7 @@
                         </goals>
                         <configuration>
                             <classifier>javadoc</classifier>
-                            <classesDirectory>${project.basedir}</classesDirectory>
-                            <excludes>
-                                <exclude>**/**</exclude>
-                            </excludes>
+                            <classesDirectory>${project.build.directory}/empty-javadoc</classesDirectory>
                             <forceCreation>true</forceCreation>
                         </configuration>
                     </execution>
