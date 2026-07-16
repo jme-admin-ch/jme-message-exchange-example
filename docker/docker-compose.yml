@@ -112,7 +112,7 @@ services:
       - rustfs-data:/data
 
   rustfs-volume-permission-helper:
-    image: alpine:3.22.2
+    image: alpine:3.24.1
     volumes:
       - rustfs-data:/data
     command: sh -c "chown -R 10001:10001 /data"
