@@ -118,7 +118,7 @@ services:
     command: sh -c "chown -R 10001:10001 /data"
 
   rustfs_init:
-    image: amazon/aws-cli:2.35.24
+    image: amazon/aws-cli:2.36.1
     depends_on:
       rustfs:
         condition: service_healthy
@@ -164,7 +164,7 @@ services:
       retries: 5
 
   localstack_init:
-    image: amazon/aws-cli:2.35.24
+    image: amazon/aws-cli:2.36.1
     environment:
       AWS_ACCESS_KEY_ID: test
       AWS_SECRET_ACCESS_KEY: test
