@@ -45,7 +45,8 @@
     </modules>
 
     <properties>
-        <jeap-message-exchange-service.version>11.0.0</jeap-message-exchange-service.version>
+        <jeap-message-exchange-service.version>11.0.1-feature-JEAP-7230-cleanup-SNAPSHOT
+        </jeap-message-exchange-service.version>
         <jeap-oauth-mock-server.version>6.7.0</jeap-oauth-mock-server.version>
         <jme-spring-boot-integration-test.version>5.7.1</jme-spring-boot-integration-test.version>
         <maven.javadoc.skip>false</maven.javadoc.skip>
