@@ -72,7 +72,6 @@ Apache License Version 2.0
  * jackson-databind - [com.fasterxml.jackson.core:jackson-databind](https://github.com/FasterXML/jackson)
  * Jackson dataformat: CBOR - [com.fasterxml.jackson.dataformat:jackson-dataformat-cbor](https://github.com/FasterXML/jackson-dataformats-binary)
  * Jackson-dataformat-CSV - [com.fasterxml.jackson.dataformat:jackson-dataformat-csv](https://github.com/FasterXML/jackson-dataformats-text)
- * Jackson-dataformat-XML - [com.fasterxml.jackson.dataformat:jackson-dataformat-xml](https://github.com/FasterXML/jackson-dataformat-xml)
  * Jackson-dataformat-YAML - [com.fasterxml.jackson.dataformat:jackson-dataformat-yaml](https://github.com/FasterXML/jackson-dataformats-text)
  * Jackson datatype: jdk8 - [com.fasterxml.jackson.datatype:jackson-datatype-jdk8](https://github.com/FasterXML/jackson-modules-java8/jackson-datatype-jdk8)
  * Jackson datatype: JSR310 - [com.fasterxml.jackson.datatype:jackson-datatype-jsr310](https://github.com/FasterXML/jackson-modules-java8/jackson-datatype-jsr310)
@@ -103,12 +102,7 @@ Apache License Version 2.0
  * Nimbus JOSE+JWT - [com.nimbusds:nimbus-jose-jwt](https://bitbucket.org/connect2id/nimbus-jose-jwt)
  * OAuth 2.0 SDK with OpenID Connect extensions - [com.nimbusds:oauth2-oidc-sdk](https://bitbucket.org/connect2id/oauth-2.0-sdk-with-openid-connect-extensions)
  * okhttp - [com.squareup.okhttp3:okhttp-jvm](https://square.github.io/okhttp/)
- * okio - [com.squareup.okio:okio](https://github.com/square/okio/)
- * okio-fakefilesystem - [com.squareup.okio:okio-fakefilesystem](https://github.com/square/okio/)
- * okio-fakefilesystem - [com.squareup.okio:okio-fakefilesystem-jvm](https://github.com/square/okio/)
  * okio - [com.squareup.okio:okio-jvm](https://github.com/square/okio/)
- * okio - [com.squareup.okio:okio-jvm](https://github.com/square/okio/)
- * wire-schema - [com.squareup.wire:wire-schema](https://github.com/square/wire/)
  * scala-logging - [com.typesafe.scala-logging:scala-logging_2.13](https://github.com/lightbend/scala-logging)
  * JSON library from Android SDK - [com.vaadin.external.google:android-json](http://developer.android.com/sdk)
  * Metrics Core Library - [com.yammer.metrics:metrics-core](http://metrics.codahale.com/metrics-core/)
@@ -278,19 +272,11 @@ Apache License Version 2.0
  * JBoss Logging 3 - [org.jboss.logging:jboss-logging](https://www.jboss.org)
  * IntelliJ IDEA Annotations - [org.jetbrains:annotations](http://www.jetbrains.org)
  * Kotlin Reflect - [org.jetbrains.kotlin:kotlin-reflect](https://kotlinlang.org/)
- * Kotlin Script Runtime - [org.jetbrains.kotlin:kotlin-script-runtime](https://kotlinlang.org/)
- * Kotlin Scripting Common - [org.jetbrains.kotlin:kotlin-scripting-common](https://kotlinlang.org/)
- * Kotlin Scripting Compiler Embeddable - [org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable](https://kotlinlang.org/)
- * Kotlin Scripting Compiler Impl Embeddable - [org.jetbrains.kotlin:kotlin-scripting-compiler-impl-embeddable](https://kotlinlang.org/)
- * Kotlin Scripting Jvm - [org.jetbrains.kotlin:kotlin-scripting-jvm](https://kotlinlang.org/)
  * Kotlin Stdlib - [org.jetbrains.kotlin:kotlin-stdlib](https://kotlinlang.org/)
- * Kotlin Stdlib Common - [org.jetbrains.kotlin:kotlin-stdlib-common](https://kotlinlang.org/)
- * Kotlin Stdlib Common - [org.jetbrains.kotlin:kotlin-stdlib-common](https://kotlinlang.org/)
  * Kotlin Stdlib Jdk7 - [org.jetbrains.kotlin:kotlin-stdlib-jdk7](https://kotlinlang.org/)
  * Kotlin Stdlib Jdk8 - [org.jetbrains.kotlin:kotlin-stdlib-jdk8](https://kotlinlang.org/)
  * kotlinx-coroutines-core - [org.jetbrains.kotlinx:kotlinx-coroutines-core](https://github.com/Kotlin/kotlinx.coroutines)
  * kotlinx-coroutines-core - [org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm](https://github.com/Kotlin/kotlinx.coroutines)
- * kotlinx-datetime - [org.jetbrains.kotlinx:kotlinx-datetime-jvm](https://github.com/Kotlin/kotlinx-datetime)
  * kotlinx-io-bytestring - [org.jetbrains.kotlinx:kotlinx-io-bytestring](https://github.com/Kotlin/kotlinx-io)
  * kotlinx-io-bytestring - [org.jetbrains.kotlinx:kotlinx-io-bytestring-jvm](https://github.com/Kotlin/kotlinx-io)
  * kotlinx-io-core - [org.jetbrains.kotlinx:kotlinx-io-core](https://github.com/Kotlin/kotlinx-io)
@@ -392,6 +378,9 @@ Apache License Version 2.0
  * thymeleaf-spring6 - [org.thymeleaf:thymeleaf-spring6](http://www.thymeleaf.org/thymeleaf-lib/thymeleaf-spring6)
  * unbescape - [org.unbescape:unbescape](http://www.unbescape.org)
  * Swagger UI - [org.webjars:swagger-ui](https://www.webjars.org)
+ * WireMock - [org.wiremock:wiremock-standalone](http://wiremock.org)
+ * wiremock-spring-boot - [org.wiremock.integrations:wiremock-spring-boot](https://github.com/wiremock/wiremock-spring-boot)
+ * wiremock-spring-boot-standalone - [org.wiremock.integrations:wiremock-spring-boot-standalone](https://github.com/wiremock/wiremock-spring-boot)
  * snappy-java - [org.xerial.snappy:snappy-java](https://github.com/xerial/snappy-java)
  * org.xmlunit:xmlunit-core - [org.xmlunit:xmlunit-core](https://www.xmlunit.org/)
  * SnakeYAML - [org.yaml:snakeyaml](https://bitbucket.org/snakeyaml/snakeyaml)
@@ -441,6 +430,7 @@ Apache License Version 2.0
  * Amazon MSK Library for AWS Identity and Access Management - [software.amazon.msk:aws-msk-iam-auth](https://docs.aws.amazon.com/msk/latest/developerguide/iam-access-control.html)
  * Jackson-core - [tools.jackson.core:jackson-core](https://github.com/FasterXML/jackson-core)
  * jackson-databind - [tools.jackson.core:jackson-databind](https://github.com/FasterXML/jackson)
+ * Jackson-dataformat-XML - [tools.jackson.dataformat:jackson-dataformat-xml](https://github.com/FasterXML/jackson-dataformat-xml)
  * Jackson-dataformat-YAML - [tools.jackson.dataformat:jackson-dataformat-yaml](https://github.com/FasterXML/jackson-dataformats-text)
 
 BSD 2-Clause License
@@ -594,6 +584,7 @@ Public Domain
 The BSD 2-Clause License
 -------------------------------
 
+ * Stax2 API - [org.codehaus.woodstox:stax2-api](http://github.com/FasterXML/stax2-api)
  * Stax2 API - [org.codehaus.woodstox:stax2-api](http://github.com/FasterXML/stax2-api)
 
 WTFPL
