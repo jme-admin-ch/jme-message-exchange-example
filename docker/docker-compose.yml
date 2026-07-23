@@ -146,7 +146,7 @@ services:
   # Floci (SQS and Secrets Manager)
   ############################################
   floci:
-    image: floci/floci:1.5.31
+    image: floci/floci:1.5.33
     hostname: 'floci'
     ports:
       - "4566:4566"
