@@ -77,7 +77,7 @@ services:
         condition: service_completed_successfully
       rustfs_init:
         condition: service_completed_successfully
-      localstack_init:
+      floci_init:
         condition: service_completed_successfully
     ports:
       - "11000:8081"
@@ -143,27 +143,22 @@ services:
       no_proxy: 'rustfs,localhost,127.0.0.1'
 
   ############################################
-  # LocalStack (SQS and Secrets Manager)
+  # Floci (SQS and Secrets Manager)
   ############################################
-  localstack:
-    image: localstack/localstack:4.14.0
-    hostname: 'localstack'
+  floci:
+    image: floci/floci:1.5.31
+    hostname: 'floci'
     ports:
       - "4566:4566"
     environment:
-      SERVICES: sqs,secretsmanager
-      DEBUG: 1
       AWS_DEFAULT_REGION: eu-central-1
-      EDGE_PORT: 4566
-    volumes:
-      - localstack-data:/var/lib/localstack
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:4566/health"]
       interval: 5s
       timeout: 5s
       retries: 5
 
-  localstack_init:
+  floci_init:
     image: amazon/aws-cli:2.36.2
     environment:
       AWS_ACCESS_KEY_ID: test
@@ -172,24 +167,23 @@ services:
     entrypoint: >
       /bin/sh -c "
       echo 'Creating SQS queue...';
-      aws --endpoint-url=http://localstack:4566 sqs create-queue --queue-name malware-scan-results;
+      aws --endpoint-url=http://floci:4566 sqs create-queue --queue-name malware-scan-results;
       echo 'SQS queue created successfully';
       echo 'Queue URL: http://localhost:4566/000000000000/malware-scan-results';
       echo '';
       echo 'Creating Secrets Manager secrets...';
-      aws --endpoint-url=http://localstack:4566 secretsmanager create-secret --name jme/test-secret --secret-string '{\"fooUser\":\"foo\",\"fooPassword\":\"bar\"}';
+      aws --endpoint-url=http://floci:4566 secretsmanager create-secret --name jme/test-secret --secret-string '{\"fooUser\":\"foo\",\"fooPassword\":\"bar\"}';
       echo 'Secrets created successfully';
       echo '';
-      echo '=== LocalStack Setup Complete ===';
+      echo '=== Floci Setup Complete ===';
       echo 'SQS Queue URL: http://localhost:4566/000000000000/malware-scan-results';
       echo 'Secrets Manager Endpoint: http://localhost:4566';
       echo 'Available secrets:';
       echo '  - jme/test-secret';
       "
     depends_on:
-      localstack:
+      floci:
         condition: service_healthy
 
 volumes:
-  localstack-data:
   rustfs-data:

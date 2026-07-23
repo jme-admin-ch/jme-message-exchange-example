@@ -19,7 +19,7 @@ services:
   rustfs:
     ports: !reset [ ]
 
-  localstack:
+  floci:
     ports: !reset [ ]
 
 networks:
