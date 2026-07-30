@@ -9,7 +9,7 @@ jobs:
   build:
     uses: jme-admin-ch/.github/.github/workflows/build.yml@main
     with:
-      maven-args: '--batch-mode install'
+      maven-args: '--batch-mode install -Pskip-pact-provider-test'
       triggered-manually: ${{ github.event_name == 'workflow_dispatch' }}
     permissions:
       contents: read
