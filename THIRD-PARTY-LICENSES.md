@@ -9,7 +9,6 @@ Apache License Version 2.0
 -------------------------------
 
  * LZ4 Java Compression - [at.yawk.lz4:lz4-java](https://github.com/yawkat/lz4-java)
- * LZ4 Java Compression - [at.yawk.lz4:lz4-java](https://github.com/yawkat/lz4-java)
  * consumer - [au.com.dius.pact:consumer](https://github.com/pact-foundation/pact-jvm)
  * provider - [au.com.dius.pact:provider](https://github.com/pact-foundation/pact-jvm)
  * junit5 - [au.com.dius.pact.consumer:junit5](https://github.com/pact-foundation/pact-jvm)
