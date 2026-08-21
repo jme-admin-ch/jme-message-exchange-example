@@ -19,6 +19,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **ch.admin.bit.jeap:jeap-message-exchange-adapter-metrics**: 14.0.0 → 14.1.0 (minor)
 - **ch.admin.bit.jeap.jme:jme-spring-boot-integration-test**: 5.14.0 → 5.15.0 (minor)
 
+### Fixed
+- Install the Avro class security whitelist in `PactProviderTest`, which Avro 1.12.2 now requires before an Avro
+  message type can be built
+
 ## [6.2.0] - 2026-08-19
 
 ### Dependencies

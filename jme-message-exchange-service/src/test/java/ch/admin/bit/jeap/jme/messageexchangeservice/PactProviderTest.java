@@ -3,6 +3,7 @@ package ch.admin.bit.jeap.jme.messageexchangeservice;
 import ch.admin.bit.jeap.messageexchange.test.Pacticipants;
 import ch.admin.bit.jeap.messageexchange.web.MessageExchangeApplication;
 import ch.admin.bit.jeap.messageexchange.web.rest.model.PactProviderTestBase;
+import ch.admin.bit.jeap.messaging.avro.security.AvroClassSecurity;
 import ch.admin.bit.jeap.messaging.mockkafka.KafkaMockTestConfig;
 import ch.admin.bit.jeap.security.test.jws.JwsBuilder;
 import ch.admin.bit.jeap.security.test.resource.configuration.JeapOAuth2IntegrationTestResourceConfiguration;
@@ -36,5 +37,10 @@ public class PactProviderTest extends PactProviderTestBase {
     @BeforeAll
     static void beforeAll() {
         Pacticipants.setMessageExchangePacticipant("bit-jme-message-exchange-service");
+        // The @MockitoBean for MessageExchangeServiceContractsValidator makes Mockito's inline mock maker initialize
+        // that class, which builds an AvroMessageType in its static initializer. This happens while the bean overrides
+        // are applied, i.e. before jeap-messaging's AvroClassSecurityAutoConfiguration got a chance to install the Avro
+        // class whitelist, so it has to be installed manually here.
+        AvroClassSecurity.installDefaultIfMissing();
     }
 }
