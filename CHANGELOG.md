@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.3.0] - 2026-08-28
+
+### Dependencies
+- **ch.admin.bit.jeap:jeap-spring-boot-parent**: 40.4.0 → 40.5.0 (minor)
+- **ch.admin.bit.jeap:jeap-message-exchange-web**: 15.2.1 → 15.3.1 (minor)
+- **ch.admin.bit.jeap:jeap-message-exchange-adapter-malware-aws-s3**: 15.2.1 → 15.3.1 (minor)
+- **ch.admin.bit.jeap:jeap-message-exchange-test**: 15.2.1 → 15.3.1 (minor)
+- **ch.admin.bit.jeap:jeap-message-exchange-adapter-kafka**: 15.2.1 → 15.3.1 (minor)
+- **ch.admin.bit.jeap:jeap-message-exchange-adapter-objectstorage**: 15.2.1 → 15.3.1 (minor)
+- **ch.admin.bit.jeap:jeap-message-exchange-domain**: 15.2.1 → 15.3.1 (minor)
+- **ch.admin.bit.jeap:jeap-message-exchange-persistence**: 15.2.1 → 15.3.1 (minor)
+- **ch.admin.bit.jeap:jeap-message-exchange-adapter-metrics**: 15.2.1 → 15.3.1 (minor)
+- **ch.admin.bit.jeap:jeap-oauth-mock-server**: 10.2.0 → 10.3.0 (minor)
+- **ch.admin.bit.jeap.jme:jme-spring-boot-integration-test**: 6.0.1 → 6.1.0 (minor)
+
 ## [8.2.0] - 2026-08-27
 
 ### Dependencies
