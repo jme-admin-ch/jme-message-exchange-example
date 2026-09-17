@@ -112,13 +112,13 @@ services:
       - rustfs-data:/data
 
   rustfs-volume-permission-helper:
-    image: alpine:3.24.1
+    image: alpine:3.24.2
     volumes:
       - rustfs-data:/data
     command: sh -c "chown -R 10001:10001 /data"
 
   rustfs_init:
-    image: amazon/aws-cli:2.36.47
+    image: amazon/aws-cli:2.36.48
     depends_on:
       rustfs:
         condition: service_healthy
@@ -156,7 +156,7 @@ services:
     # based image has no curl).
 
   floci_init:
-    image: amazon/aws-cli:2.36.47
+    image: amazon/aws-cli:2.36.48
     environment:
       AWS_ACCESS_KEY_ID: test
       AWS_SECRET_ACCESS_KEY: test
