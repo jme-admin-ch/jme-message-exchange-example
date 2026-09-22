@@ -205,6 +205,7 @@ Apache License Version 2.0
  * swagger-core-jakarta - [io.swagger.core.v3:swagger-core-jakarta](https://github.com/swagger-api/swagger-core/modules/swagger-core-jakarta)
  * swagger-models-jakarta - [io.swagger.core.v3:swagger-models-jakarta](https://github.com/swagger-api/swagger-core/modules/swagger-models-jakarta)
  * Jakarta Validation API - [jakarta.validation:jakarta.validation-api](https://beanvalidation.org)
+ * Bean Validation API - [javax.validation:validation-api](http://beanvalidation.org)
  * Byte Buddy (without dependencies) - [net.bytebuddy:byte-buddy](https://bytebuddy.net/byte-buddy)
  * Byte Buddy agent - [net.bytebuddy:byte-buddy-agent](https://bytebuddy.net/byte-buddy-agent)
  * net.javacrumbs.shedlock:shedlock-core - [net.javacrumbs.shedlock:shedlock-core](https://github.com/lukas-krecan/ShedLock/shedlock-core)
@@ -537,6 +538,7 @@ MIT License
 
  * minimal-json - [com.eclipsesource.minimal-json:minimal-json](https://github.com/ralfstx/minimal-json)
  * Java SemVer - [com.github.zafarkhaja:java-semver](https://github.com/zafarkhaja/jsemver)
+ * mbknor-jackson-jsonSchema - [com.kjetland:mbknor-jackson-jsonschema_2.13](https://github.com/mbknor/mbknor-jackson-jsonSchema)
  * semver4j - [com.vdurmont:semver4j](https://github.com/vdurmont/semver4j)
  * ClassGraph - [io.github.classgraph:classgraph](https://github.com/classgraph/classgraph)
  * ClassGraph - [io.github.classgraph:classgraph](https://github.com/classgraph/classgraph)
