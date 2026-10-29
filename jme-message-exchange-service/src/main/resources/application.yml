@@ -41,6 +41,11 @@ springdoc:
     try-it-out-enabled: true
 
 jeap:
+  security:
+    oauth2:
+      resourceserver:
+        resource-id: "https://resources.jme.admin.ch/jme/jme-message-exchange-service"
+        strict-audience-validation: "on"
   messageexchange:
     malwarescan:
       enabled: false

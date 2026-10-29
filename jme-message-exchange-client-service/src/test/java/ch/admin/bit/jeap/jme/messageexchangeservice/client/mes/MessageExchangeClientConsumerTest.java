@@ -39,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 class MessageExchangeClientConsumerTest {
     private static final String PROVIDER = "bit-jme-message-exchange-service";
     private static final String CONSUMER = "bit-jme-message-exchange-client-service";
+    private static final String MESSAGE_EXCHANGE_RESOURCE_ID = "https://resources.jme.admin.ch/jme/jme-message-exchange-service";
     private static final String API_PATH = "/message-exchange/api/internal/v3/messages";
     private static final String IN_MESSAGE_ID = "610b64cc-4211-4625-a11e-8e8bfe616876";
     private static final String OUT_MESSAGE_ID = "54acea68-addc-463b-9109-47089b7e4b90";
@@ -68,6 +69,7 @@ class MessageExchangeClientConsumerTest {
                 .operation("write")
                 .build();
         clientToken = jwsBuilderFactory.createValidForFixedLongPeriodBuilder("jme-message-exchange-client-service", JeapAuthenticationContext.SYS)
+                .withAudiences(MESSAGE_EXCHANGE_RESOURCE_ID)
                 .withUserRoles(readRole, writeRole)
                 .build().serialize();
     }

@@ -40,6 +40,8 @@ oauth-mock-data:
       userroles:
         - "wvs_@b2bmessageout_#read"
         - "wvs_@b2bmessagein_#write"
+      audience:
+        - "https://resources.jme.admin.ch/jme/jme-message-exchange-service"
 
     - client-id: "internal-client"
       client-secret: "{noop}secret"
@@ -54,6 +56,8 @@ oauth-mock-data:
       userroles:
         - "wvs_@b2bmessageout_#write"
         - "wvs_@b2bmessagein_#read"
+      audience:
+        - "https://resources.jme.admin.ch/jme/jme-message-exchange-service"
 
     - client-id: "jme-message-exchange-perftest"
       client-secret: "{noop}secret"
@@ -67,3 +71,8 @@ oauth-mock-data:
       userroles:
         - "wvs_@b2bmessageout_#write"
         - "wvs_@b2bmessagein_#read"
+      audience:
+        - "https://resources.jme.admin.ch/jme/jme-message-exchange-service"
+
+mockserver:
+  introspection-endpoint-audience-check: "on"
