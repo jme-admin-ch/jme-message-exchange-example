@@ -18,9 +18,6 @@ import org.springframework.transaction.support.TransactionTemplate;
         webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
         properties = {
                 "logging.level.au.com.dius.pact=DEBUG",
-                // JEAP-7500: switch back to the configured "on" once the consumer pact with token audience has been
-                // published from master; the pact verified here still carries tokens without an audience.
-                "jeap.security.oauth2.resourceserver.strict-audience-validation=warn",
                 "jeap.security.oauth2.resourceserver.authorization-server.issuer=" + JwsBuilder.DEFAULT_ISSUER,
                 "jeap.security.oauth2.resourceserver.authorization-server.jwk-set-uri=http://localhost:1235/message-exchange/.well-known/jwks.json",
                 "spring.cloud.aws.sqs.enabled=false"
